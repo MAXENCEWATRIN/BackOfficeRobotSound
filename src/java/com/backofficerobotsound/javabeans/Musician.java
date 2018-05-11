@@ -54,7 +54,7 @@ public class Musician implements Serializable {
         this.name = name;
     }
     
-    @XmlTransient
+
     public List<Preference> getListePreferences() {
         return all;
     }

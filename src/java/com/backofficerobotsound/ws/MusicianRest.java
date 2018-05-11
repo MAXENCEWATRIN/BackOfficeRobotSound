@@ -8,6 +8,7 @@ package com.backofficerobotsound.ws;
 import com.backofficerobotsound.ejb.MusicianEJB;
 import com.backofficerobotsound.javabeans.Musician;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.faces.bean.RequestScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -23,15 +24,14 @@ import javax.ws.rs.core.Response;
  *
  * @author maxence
  */
-@Path("/musician")
+@Path("/musicians")
 @RequestScoped
 @Produces({"appplication/json"})
 public class MusicianRest {
-    
+
+    @EJB
     private MusicianEJB musicianEjb;
-    
-    
-    
+
     @GET
     @Path("/test")
     @Produces({"text/plain"})
@@ -40,42 +40,33 @@ public class MusicianRest {
     }
 
     @GET
-    @Path("/all")
     public List<Musician> all() {
         return this.musicianEjb.all();
     }
 
-    
     @POST
     @Produces({"application/json"})
-    @Path("/add")
-    public List<Musician> add(Musician Musician) {
-        musicianEjb.edit(Musician);
+    public List<Musician> add(Musician musician) {
+        musicianEjb.edit(musician);
         return musicianEjb.all();
     }
 
-   
     @PUT
-    @Path("/modify")
     @Consumes({"application/json"})
-    public Response modify(Musician Musician) {
-        musicianEjb.edit(Musician);
+    public Response modify(Musician musician) {
+        musicianEjb.edit(musician);
         Response response = Response.status(200).build();
         return response;
     }
-    
-  
+
     @DELETE
-    @Path("delete/{idMusician:[0-9]+}")
-    public Response delete(@PathParam("idMusician") int id)
-    {
-      Musician Musician  = musicianEjb.getById(id);
+    @Path("/{idMusician:[0-9]+}")
+    public Response delete(@PathParam("idMusician") int id) {
+        Musician Musician = musicianEjb.getById(id);
         musicianEjb.delete(Musician);
         Response reponse = Response.status(200).build();
         return reponse;
-                
+
     }
 
-    
-    
 }

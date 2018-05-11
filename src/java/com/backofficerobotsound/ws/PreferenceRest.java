@@ -24,7 +24,7 @@ import javax.ws.rs.core.Response;
  *
  * @author maxence
  */
-@Path("/preference")
+@Path("/preferences")
 @RequestScoped
 @Produces({"application/json"})
 public class PreferenceRest {
@@ -40,7 +40,6 @@ public class PreferenceRest {
     }
 
     @GET
-    @Path("/all")
     public List<Preference> all() {
         return this.preferenceEjb.all();
     }
@@ -48,7 +47,6 @@ public class PreferenceRest {
     
     @POST
     @Produces({"application/json"})
-    @Path("/add")
     public List<Preference> add(Preference preference) {
         preferenceEjb.edit(preference);
         return preferenceEjb.all();
@@ -56,7 +54,6 @@ public class PreferenceRest {
 
    
     @PUT
-    @Path("/modify")
     @Consumes({"application/json"})
     public Response modify(Preference preference) {
         preferenceEjb.edit(preference);
@@ -66,7 +63,7 @@ public class PreferenceRest {
     
   
     @DELETE
-    @Path("delete/{idPreference:[0-9]+}")
+    @Path("/{idPreference:[0-9]+}")
     public Response delete(@PathParam("idPreference") int id)
     {
       Preference preference  = preferenceEjb.getPreferenceById(id);
