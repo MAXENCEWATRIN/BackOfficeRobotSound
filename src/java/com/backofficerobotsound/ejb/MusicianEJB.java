@@ -42,10 +42,8 @@ public class MusicianEJB {
      
     //supprimer Rest
     public Musician getById(int idMusicien) {
-        System.out.println(idMusicien);
+        System.out.println("idMusicien"+idMusicien);
         return entityManager.find(Musician.class, idMusicien);
     }
-    
-    
     
 }

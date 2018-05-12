@@ -19,45 +19,40 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PreferenceEJB {
-    
+
     @PersistenceContext
     private EntityManager entityManager;
 
     public PreferenceEJB() {
     }
-    
-    public void edit(Preference preference){
-        System.out.println("editPreferenceEJB");
+
+    public void edit(Preference preference) {
         entityManager.getEntityManagerFactory().getCache().evict(Musician.class, preference.getMusician().getIdMusician());
-        entityManager.merge(preference);        
+        entityManager.merge(preference);
     }
-    
-    public void delete(Preference preference){
-        System.out.println("deletePreferenceEJB");
+
+    public void delete(Preference preference) {
         entityManager.getEntityManagerFactory().getCache().evict(Musician.class, preference.getMusician().getIdMusician());
         entityManager.remove(entityManager.merge(preference));
-        
+
     }
-    
+
     public List<Preference> all() {
-        System.out.println("allPreferenceEJB");
-        Query query = entityManager.createQuery("SELECT p FROM Preference p");   
+        Query query = entityManager.createQuery("SELECT p FROM Preference p");
         return query.getResultList();
     }
-    
-     public List<Preference> getByMusicianId(int idMusician) {
-        // reload musicien and all preference associate.
-        entityManager.getEntityManagerFactory().getCache().evict(Musician.class,idMusician);
-        Query query = entityManager.createQuery("SELECT listePreferences FROM Preference listePreferences WHERE listePreferences.musicien.idMusicien=:idMusicien ORDER BY listePreferences.libelle ASC");
-        query.setParameter("idMusicien", idMusician);
+
+    public List<Preference> getByMusicianId(int idMusician) {
+        entityManager.getEntityManagerFactory().getCache().evict(Musician.class, idMusician);
+        Query query = entityManager.createQuery("SELECT p FROM Preference p WHERE p.musician.idMusician = :idMusician ORDER BY p.wording ASC");
+        query.setParameter("idMusician", idMusician);
         query.getFlushMode();
         entityManager.flush();
         return query.getResultList();
     }
-     
-     public Preference getPreferenceById(int id)
-    {
+
+    public Preference getPreferenceById(int id) {
         return entityManager.find(Preference.class, id);
     }
-    
+
 }

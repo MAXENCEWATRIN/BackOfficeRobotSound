@@ -9,7 +9,6 @@ import com.backofficerobotsound.ejb.MusicianEJB;
 import com.backofficerobotsound.javabeans.Musician;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.faces.bean.RequestScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -18,15 +17,17 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.xml.ws.ResponseWrapper;
+import org.jboss.weld.context.bound.Bound;
 
 /**
  *
  * @author maxence
  */
 @Path("/musicians")
-@RequestScoped
-@Produces({"appplication/json"})
+@Produces(MediaType.APPLICATION_JSON)
 public class MusicianRest {
 
     @EJB
@@ -40,33 +41,44 @@ public class MusicianRest {
     }
 
     @GET
-    public List<Musician> all() {
-        return this.musicianEjb.all();
+    public Response all() {
+        return Response.ok(musicianEjb.all())
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET")
+                .allow("OPTIONS")
+                .build();
     }
 
     @POST
-    @Produces({"application/json"})
-    public List<Musician> add(Musician musician) {
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response add(Musician musician) {
         musicianEjb.edit(musician);
-        return musicianEjb.all();
+        return successResponse();
     }
 
     @PUT
-    @Consumes({"application/json"})
-    public Response modify(Musician musician) {
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response update(Musician musician) {
         musicianEjb.edit(musician);
-        Response response = Response.status(200).build();
-        return response;
+        return successResponse();
     }
 
     @DELETE
     @Path("/{idMusician:[0-9]+}")
-    public Response delete(@PathParam("idMusician") int id) {
-        Musician Musician = musicianEjb.getById(id);
-        musicianEjb.delete(Musician);
-        Response reponse = Response.status(200).build();
-        return reponse;
+    public Response supprimerMusicien(@PathParam("idMusician") int id) {
+        
+        Musician musician = musicianEjb.getById(id);
+        musicianEjb.delete(musician);
+        return successResponse();
 
+    }
+
+    private Response successResponse() {
+        return Response.status(200)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                .allow("OPTIONS")
+                .build();
     }
 
 }

@@ -33,7 +33,7 @@ public class Musician implements Serializable {
     private String image  = "";
     
     @OneToMany(cascade = CascadeType.REMOVE,mappedBy = "musician",fetch = FetchType.EAGER)
-    private List<Preference> all;
+    private List<Preference> preferences;
 
     public Musician() {
     }
@@ -54,13 +54,12 @@ public class Musician implements Serializable {
         this.name = name;
     }
     
-
-    public List<Preference> getListePreferences() {
-        return all;
+    public List<Preference> getPreferences() {
+        return preferences;
     }
 
-    public void setListePreferences(List<Preference> all) {
-        this.all = all;
+    public void setListePreferences(List<Preference> preferences) {
+        this.preferences = preferences;
     }
 
     public boolean isLaser() {
@@ -79,6 +78,4 @@ public class Musician implements Serializable {
         this.image = image;
     }
     
-    
-
 }

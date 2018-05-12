@@ -30,7 +30,6 @@ public class Preference implements Serializable{
     private int x;
     private int y;
     
-    
     @ManyToOne
     Musician musician = new Musician();  
 
@@ -77,6 +76,5 @@ public class Preference implements Serializable{
     public void setY(int y) {
         this.y = y;
     }
-    
     
 }

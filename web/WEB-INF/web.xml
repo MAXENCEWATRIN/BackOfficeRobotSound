@@ -19,6 +19,15 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <servlet>
+        <servlet-name>GatewayServlet</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>javax.ws.rs.container.ContainerRequestContext</param-name>
+            <param-value>com.backofficerobotsound.utils.CorsOrigin</param-value>
+        </init-param>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
     <servlet-mapping>
         <servlet-name>WebService</servlet-name>
         <url-pattern>/rest/*</url-pattern>
@@ -38,6 +47,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/index.xhtml</welcome-file>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>faces/index.html</welcome-file>
     </welcome-file-list>
 </web-app>
