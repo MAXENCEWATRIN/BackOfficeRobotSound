@@ -18,10 +18,10 @@ import javax.persistence.Query;
  */
 @Stateless
 public class MusicianEJB {
-    
+
     @PersistenceContext
     private EntityManager entityManager;
-    
+
     public MusicianEJB() {
     }
 
@@ -29,21 +29,20 @@ public class MusicianEJB {
     public void edit(Musician musician) {
         entityManager.merge(musician);
     }
-   
-      //supprimer 
-     public void delete(Musician musician) {
+
+    //supprimer 
+    public void delete(Musician musician) {
         entityManager.remove(entityManager.merge(musician));
     }
-    
+
     public List<Musician> all() {
-         Query query = entityManager.createQuery("SELECT m FROM Musician m");
+        Query query = entityManager.createQuery("SELECT m FROM Musician m");
         return query.getResultList();
-    } 
-     
+    }
+
     //supprimer Rest
     public Musician getById(int idMusicien) {
-        System.out.println("idMusicien"+idMusicien);
         return entityManager.find(Musician.class, idMusicien);
     }
-    
+
 }

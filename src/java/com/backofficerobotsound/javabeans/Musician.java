@@ -6,23 +6,20 @@
 package com.backofficerobotsound.javabeans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author maxence
  */
 @Entity
-@XmlRootElement
 public class Musician implements Serializable {
 
     @Id
@@ -32,12 +29,12 @@ public class Musician implements Serializable {
     private boolean laser;
     private String image  = "";
     
-    @OneToMany(cascade = CascadeType.REMOVE,mappedBy = "musician",fetch = FetchType.EAGER)
-    private List<Preference> preferences;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "musician")
+    private List<Preference> preferences = new ArrayList<>();
 
     public Musician() {
     }
-    
+
     public int getIdMusician() {
         return idMusician;
     }
@@ -52,14 +49,6 @@ public class Musician implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-    
-    public List<Preference> getPreferences() {
-        return preferences;
-    }
-
-    public void setListePreferences(List<Preference> preferences) {
-        this.preferences = preferences;
     }
 
     public boolean isLaser() {
@@ -77,5 +66,15 @@ public class Musician implements Serializable {
     public void setImage(String image) {
         this.image = image;
     }
+
+    public List<Preference> getPreferences() {
+        return preferences;
+    }
+
+    public void setPreferences(List<Preference> preferences) {
+        this.preferences = preferences;
+    }
+
+    
     
 }

@@ -7,11 +7,9 @@ package com.backofficerobotsound.ejb;
 
 import com.backofficerobotsound.javabeans.Musician;
 import com.backofficerobotsound.javabeans.Preference;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 /**
  *
@@ -37,21 +35,7 @@ public class PreferenceEJB {
 
     }
 
-    public List<Preference> all() {
-        Query query = entityManager.createQuery("SELECT p FROM Preference p");
-        return query.getResultList();
-    }
-
-    public List<Preference> getByMusicianId(int idMusician) {
-        entityManager.getEntityManagerFactory().getCache().evict(Musician.class, idMusician);
-        Query query = entityManager.createQuery("SELECT p FROM Preference p WHERE p.musician.idMusician = :idMusician ORDER BY p.wording ASC");
-        query.setParameter("idMusician", idMusician);
-        query.getFlushMode();
-        entityManager.flush();
-        return query.getResultList();
-    }
-
-    public Preference getPreferenceById(int id) {
+    public Preference getById(int id) {
         return entityManager.find(Preference.class, id);
     }
 

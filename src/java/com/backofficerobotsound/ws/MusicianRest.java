@@ -7,6 +7,8 @@ package com.backofficerobotsound.ws;
 
 import com.backofficerobotsound.ejb.MusicianEJB;
 import com.backofficerobotsound.javabeans.Musician;
+import com.backofficerobotsound.utils.RestApiTools;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -38,44 +40,31 @@ public class MusicianRest {
     }
 
     @GET
-    public Response all() {
-        return Response.ok(musicianEjb.all())
-                .header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Methods", "GET")
-                .allow("OPTIONS")
-                .build();
+    public List<Musician> all() {
+        return musicianEjb.all();
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response add(Musician musician) {
         musicianEjb.edit(musician);
-        return successResponse();
+        return RestApiTools.successResponse();
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public Response update(Musician musician) {
         musicianEjb.edit(musician);
-        return successResponse();
+        return RestApiTools.successResponse();
     }
 
     @DELETE
     @Path("/{idMusician:[0-9]+}")
-    public Response supprimerMusicien(@PathParam("idMusician") int id) {
-        
+    public Response delete(@PathParam("idMusician") int id) {
+
         Musician musician = musicianEjb.getById(id);
         musicianEjb.delete(musician);
-        return successResponse();
-
-    }
-
-    private Response successResponse() {
-        return Response.status(200)
-                .header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-                .allow("OPTIONS")
-                .build();
+        return RestApiTools.successResponse();
     }
 
 }

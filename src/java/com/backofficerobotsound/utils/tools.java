@@ -46,6 +46,7 @@ public class tools {
 //        }
 //    }
 
+    
     public static String generatedRandomNameFile() {
         int i = (int) (Math.random() * 100000000);
         return String.valueOf(i) + ".png";

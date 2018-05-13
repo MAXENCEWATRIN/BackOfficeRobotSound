@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        
+                    
+                     
+        
+        
+        
+        
+        
+        
+        
+        <div class="col-8" style="height:60vh; position: relative">
+                    ma vidéo
+                    {{ preference }}
+                    <div class="form-group" style="transform:rotate(270deg);position: absolute;top: 250px;right: 975px ;width: 45%;">
+                        <label for="y">{{ preference.y }}</label>
+                        <input type="range" class="form-control-range" max="1000" v-model="preference.y" id="y">
+                    </div>
+                    <div class="form-group"  style="position: absolute;width: 55%;top:500px;left: 100px;">
+                        <label for="x">{{ preference.x }}</label>
+                        <input type="range" class="form-control-range" max="1000" v-model="preference.x" id="x">
+                    </div>
+
+                </div>
+        
+        
+        
+        
+        
+        
+    </body>
+</html>
