@@ -8,6 +8,7 @@ package com.backofficerobotsound.javabeans;
 import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,23 +25,25 @@ public class Preference implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idPreference;
+    private long idPreference;
     private String wording;
     private int x;
     private int y;
 
-    @ManyToOne(cascade = CascadeType.DETACH)
-    @JoinColumn(name = "IDMUSICIAN")
-    private Musician musician;
+//    @ManyToOne
+//    @JoinColumn(name = "IDMUSICIAN")
+//    private Musician musician;
+    @ManyToOne
+    private Musician musician = new Musician();
 
     public Preference() {
     }
 
-    public int getIdPreference() {
+    public long getIdPreference() {
         return idPreference;
     }
 
-    public void setIdPreference(int idPreference) {
+    public void setIdPreference(long idPreference) {
         this.idPreference = idPreference;
     }
 
@@ -68,7 +71,6 @@ public class Preference implements Serializable {
         this.y = y;
     }
 
-    @XmlTransient
     public Musician getMusician() {
         return musician;
     }
@@ -77,6 +79,9 @@ public class Preference implements Serializable {
         this.musician = musician;
     }
 
-
+    @Override
+    public String toString() {
+        return "Preference{" + "idPreference=" + idPreference + ", wording=" + wording + ", x=" + x + ", y=" + y + ", musician=" + musician + '}';
+    }
 
 }

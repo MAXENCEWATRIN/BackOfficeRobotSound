@@ -8,6 +8,7 @@ package com.backofficerobotsound.ws;
 import com.backofficerobotsound.ejb.PreferenceEJB;
 import com.backofficerobotsound.javabeans.Preference;
 import com.backofficerobotsound.utils.RestApiTools;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -37,7 +38,14 @@ public class PreferenceRest {
     public String test() {
         return "Serveur OK";
     }
-
+    
+    @GET
+    @Path("/{idMusician:[0-9]+}")
+    public List<Preference> all(@PathParam("idMusician") long id) {
+        System.out.print(id);
+        return preferenceEJB.allByMusician(id);
+    }
+    
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response add(Preference preference) {
@@ -54,11 +62,10 @@ public class PreferenceRest {
 
     @DELETE
     @Path("/{idPreference:[0-9]+}")
-    public Response delete(@PathParam("idPreference") int id) {
+    public Response delete(@PathParam("idPreference") long id) {
         Preference preference = preferenceEJB.getById(id);
         preferenceEJB.delete(preference);
         return RestApiTools.successResponse();
-
     }
 
 }

@@ -8,6 +8,7 @@ package com.backofficerobotsound.ws;
 import com.backofficerobotsound.ejb.MusicianEJB;
 import com.backofficerobotsound.javabeans.Musician;
 import com.backofficerobotsound.utils.RestApiTools;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
@@ -41,6 +42,7 @@ public class MusicianRest {
 
     @GET
     public List<Musician> all() {
+        System.out.println("tiuhliuh");
         return musicianEjb.all();
     }
 
@@ -60,8 +62,7 @@ public class MusicianRest {
 
     @DELETE
     @Path("/{idMusician:[0-9]+}")
-    public Response delete(@PathParam("idMusician") int id) {
-
+    public Response delete(@PathParam("idMusician") long id) {
         Musician musician = musicianEjb.getById(id);
         musicianEjb.delete(musician);
         return RestApiTools.successResponse();

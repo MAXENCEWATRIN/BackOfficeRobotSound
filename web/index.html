@@ -22,199 +22,241 @@
   }
   </style>
   <div class="container-fluid" id="robotSoundApp">
+    <button class="btn btn-primary"  v-on:click="resetView()">Rafraichir</button>
+    <!-- <div class="row">
+    preference :
+    <pre>
+    {{ preference }}
+  </pre>
+  musician :
+  <pre>
+  {{ musician }}
+</pre>
+preferences :
+<pre>
+{{ preferences }}
+</pre>
+musicians
+<pre>
+{{musicians}}
+</pre>
+</div> -->
 
+<div class="row">
+  <div class="col-8" style="height:60vh; position: relative">
+    ma vidéo
 
-
-    <div class="row">
-      <div class="col-8" style="height:60vh; position: relative">
-        ma vidéo
-        {{ preference }}
-        <div class="form-group" style="position: absolute;right: 0;bottom: 15px;">
-          <label for="y">{{ preference.y }}</label>
-          <input type="range" class="form-control-range" orient="vertical" max="1000" v-model="preference.y" id="y">
-        </div>
-        <div class="form-group"  style="position: absolute;right: 15px;bottom: 0;width:100%;">
-          <label for="x">{{ preference.x }}</label>
-          <input type="range" class="form-control-range" max="1000" v-model="preference.x" id="x">
-        </div>
-
-      </div>
-      <div class="col-4">
-        <h4 class="text-left">ajouter un musicien :</h4>
-        {{ musician }}
-        <form id="musician-form" @submit.prevent="editMusician"  role="form">
-
-          <div class="form-group">
-            <label for="name" class="control-label">Nom :</label>
-            <input type="text" id="name" v-model="musician.name" class="form-control" placeholder="Entrez votre nom d'artiste" required="true"/>
-          </div>
-
-          <div class="input-group">
-            <label for="image" class="control-label">Image :</label>
-            <input type="file" id="image" class="form-control-file"/>
-            <!--<img src="musician.image">-->
-          </div>
-
-
-          <div class="input-group">
-            <label for="laser" class="control-label">Laser :</label>
-            <input type="checkbox" v-model="musician.laser" @/>
-          </div>
-
-          <div class="form-group">
-            <input type="submit" class="btn btn-primary" />
-          </div>
-        </form>
-        <h4 class="text-left">ajouter une preference</h4>
-        {{ preference }}
-        <form id="preference-form" @submit.prevent="editPreference"  role="form" >
-          <div class="form-group">
-            <label for="wording" class="control-label">libellé :</label>
-            <input type="text" id="wording" v-model="preference.wording" class="form-control" placeholder="Entrez le nom du libelle" required="true"/>
-            <div class="help-block with-errors"></div>
-          </div>
-          <div class="form-group">
-            <input type="submit" class="btn btn-primary" />
-          </div>
-        </form>
-
-      </div>
-
+    <div class="form-group" style="position: absolute;right: 0;bottom: 15px;">
+      <label for="y">{{ preference.y }}</label>
+      <input type="range" class="form-control-range" step="0" orient="vertical" min="0" max="1000" v-model="preference.y" id="y">
+    </div>
+    <div class="form-group"  style="position: absolute;right: 15px;bottom: 0;width:100%;">
+      <label for="x">{{ preference.x }}</label>
+      <input type="range" class="form-control-range" step="0" min="0" max="1000" v-model="preference.x" id="x">
     </div>
 
+  </div>
+  <div class="col-4">
+    <h4 class="text-left">ajouter un musicien :</h4>
 
+    <form id="musician-form" @submit.prevent="editMusician"  role="form">
 
-
-
-    <div class="row">
-      <div class="col-6">
-        <div class="table-responsive">
-          <h4 class="text-left">Liste des musiciens</h4>
-          <table class="table">
-            <caption>Liste des musiciens</caption>
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Image</th>
-                <th scope="col">Laser</th>
-                <th colspan="3">Gestions</th>
-              </tr>
-            </thead>
-            {{musicians}}
-            <tbody>
-              <tr v-for="musician in musicians">
-                <th scope="row">{{ musician.idMusician }}</th>
-                <td>{{ musician.name }}</td>
-                <td>{{ musician.image }}</td>
-                <td>{{ musician.laser }}</td>
-                <td colspan="3">
-                  <button class="btn btn-danger"  v-on:click="deleteMusician(musician.idMusician)">delete</button>
-                  <button class="btn btn-warning" v-on:click="updateMusician(musician)">Update</button>
-                  <button class="btn btn-primary" v-on:click="selectMusician(musician)">Préférences</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="form-group">
+        <label for="name" class="control-label">Nom :</label>
+        <input type="text" id="name" v-model="musician.name" class="form-control" placeholder="Entrez votre nom d'artiste" required="true"/>
       </div>
-      <div class="col-6">
-        <div class="table-responsive">
-          <h4 class="text-left">Liste des Préférences de {{ musician.name }}</h4>
-          <table class="table">
-            <caption>Liste des Préférences</caption>
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Libellé</th>
-                <th>Gestions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="preference in musician.preferences">
-                <th scope="row">{{ preference.idPreference }}</th>
-                <td>{{ preference.wording }}</td>
-                <td colspan="3">
-                  <button class="btn btn-danger"  v-on:click="deletePreference(preference.idPreference)">delete</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+
+      <div class="input-group">
+        <label for="image" class="control-label">Image :</label>
+        <input type="file" id="image" class="form-control-file"/>
+        <!--<img src="musician.image">-->
       </div>
+
+
+      <div class="input-group">
+        <label for="laser" class="control-label">Laser :</label>
+        <input type="checkbox" v-model="musician.laser" @/>
+      </div>
+
+      <div class="form-group">
+        <input type="submit" class="btn btn-primary" />
+      </div>
+    </form>
+
+    <div v-if="selectedMusicianForPreference.idMusician">
+      <h4 class="text-left">ajouter une preference</h4>
+      <form id="preference-form" @submit.prevent="editPreference"  role="form" >
+        <div class="form-group">
+          <label for="wording" class="control-label">libellé :</label>
+          <input type="text" id="wording" v-model="preference.wording" class="form-control" placeholder="Entrez le nom du libelle" required="true"/>
+          <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+          <input type="submit" class="btn btn-primary" />
+        </div>
+      </form>
     </div>
+
   </div>
 
+</div>
+
+<div class="row">
+  <div class="col-6">
+    <div class="table-responsive">
+      <h4 class="text-left">Liste des musiciens</h4>
+      <table class="table">
+        <caption>Liste des musiciens</caption>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Image</th>
+            <th scope="col">Laser</th>
+            <th colspan="3">Gestions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr v-for="musician in musicians">
+            <th scope="row">{{ musician.idMusician }}</th>
+            <td>{{ musician.name }}</td>
+            <td>{{ musician.image }}</td>
+            <td>{{ musician.laser }}</td>
+            <td colspan="3">
+              <button class="btn btn-danger"  v-on:click="deleteMusician(musician.idMusician)">delete</button>
+              <button class="btn btn-warning" v-on:click="updateMusician(musician)">Update</button>
+              <button class="btn btn-primary" v-on:click="selectPreferences(musician)">Préférences</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="table-responsive" v-if="selectedMusicianForPreference.idMusician">
+      <h4 class="text-left">Liste des Préférences de {{ selectedMusicianForPreference.name }}</h4>
+      <table class="table">
+        <caption>Liste des Préférences</caption>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Label</th>
+            <th scope="col">X</th>
+            <th scope="col">Y</th>
+            <th>Gestions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="preference in preferences">
+            <th scope="row">{{ preference.idPreference }}</th>
+            <td>{{ preference.wording }}</td>
+            <td>{{ preference.x }}</td>
+            <td>{{ preference.y }}</td>
+            <td colspan="3">
+              <button class="btn btn-danger"  v-on:click="deletePreference(preference.idPreference)">delete</button>
+              <button class="btn btn-warning"  v-on:click="updatePreference(preference)">update</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+<script type="text/javascript">
+var URL = "http://localhost:8080/BackOfficeRobotSound/rest";
+var URL_MUSICIAN = URL + "/musicians/";
+var URL_PREFERENCE = URL + "/preferences/";
 
 
 
-
-  <script type="text/javascript">
-  var URL = "http://localhost:8080/BackOfficeRobotSound/rest";
-  var URL_MUSICIAN = URL + "/musicians/";
-  var URL_PREFERENCE = URL + "/preferences/";
-  var robotSoundApp = new Vue({
-    el: '#robotSoundApp',
-    data: {
-      musicians: [],
-      preferences: [],
-      error: '',
-      message: '',
-      musician: {},
-      preference: {
-        x: 0,
-        y: 0
-      }
+var robotSoundApp = new Vue({
+  el: '#robotSoundApp',
+  data: {
+    musicians: [],
+    preferences: [],
+    error: '',
+    message: '',
+    musician: {},
+    selectedMusicianForPreference: {},
+    ok:'',
+    preference: {}
+  },
+  mounted() {
+    this.getMusicians();
+  },
+  methods: {
+    resetView(){
+      musicians = []
+      preferences = []
+      error = ''
+      message = ''
+      musician = {}
+      selectedMusicianForPreference = {}
+      ok = ''
+      preference = {}
     },
-    mounted() {
-      this.getMusicians();
+    updateMusician(musician) {
+      this.musician = musician
+      this.selectedMusicianForPreference = {}
     },
-    methods: {
-      updateMusician(musician) {
-        this.musician = musician
-      },
-      selectMusician(musician) {
-        this.musician = musician
-        this.preference.musician = musician
-      },
-      editMusician() {
-        if (this.musician.idMusician) {
-          axios.put(URL_MUSICIAN, this.musician)
-          .then(response => (
-            this.response = response
-          )
-          .then(
-            this.getMusicians()
-          )
-        ).then(this.musician = {})
-        .catch(error => (
-          this.error = error
-        ));
-      } else {
-        axios.post(URL_MUSICIAN, this.musician)
+    selectPreferences(musician) {
+      this.selectedMusicianForPreference = musician
+      this.preference.musician = this.selectedMusicianForPreference
+      this.getPreferences(musician);
+    },
+    editMusician() {
+      if (this.musician.idMusician) {
+        axios.put(URL_MUSICIAN, this.musician)
         .then(response => (
           this.response = response
-        ).then(this.musicians = this.getMusicians())
+        )
+        .then(
+          this.getMusicians()
+        )
       ).then(this.musician = {})
       .catch(error => (
         this.error = error
       ));
-    }
-  },
-  deleteMusician(idMusician) {
-    axios.delete(URL_MUSICIAN + idMusician)
-    .then(response => (
-      this.response = response
-    ).then(this.getMusicians())
-  )
-  .catch(error => (
-    this.error = error
-  ));
+    } else {
+      axios.post(URL_MUSICIAN, this.musician)
+      .then(response => (
+        this.response = response
+      ).then(this.musicians = this.getMusicians())
+    ).then(this.musician = {})
+    .catch(error => (
+      this.error = error
+    ));
+  }
+},
+deleteMusician(idMusician) {
+  axios.delete(URL_MUSICIAN + idMusician)
+  .then(response => (
+    this.response = response
+  ).then(
+    this.getMusicians()
+
+
+)).then(this.selectedMusicianForPreference = {}).then(this.preferences = [])
+.catch(error => (
+  this.error = error
+));
 },
 getMusicians() {
   axios.get(URL_MUSICIAN)
   .then(response =>
     (this.musicians = response.data)
+  )
+  .catch(error =>
+    (this.error = "Some issues with the server !")
+  )
+},
+getPreferences(musician){
+  axios.get(URL_PREFERENCE + musician.idMusician)
+  .then(response =>
+    this.preferences = response.data
   )
   .catch(error =>
     (this.error = "Some issues with the server !")
@@ -230,17 +272,27 @@ editPreference() {
       this.response = response
     )
     .then(
-      this.getMusicians()
+      this.getPreferences(this.selectedMusicianForPreference)
     )
-  ).then(this.preference = {})
+  ).then(
+    this.preference = {
+      musician: this.selectedMusicianForPreference
+    }
+  )
   .catch(error => (
     this.error = error
   ));
 } else {
   axios.post(URL_PREFERENCE, this.preference)
   .then(response =>
-    (this.response = response).then(this.getMusicians())
-  ).then(this.preference = {})
+    (this.response = response).then(this.getPreferences(this.selectedMusicianForPreference))
+  ).then(
+
+    this.preference = {
+      musician: this.selectedMusicianForPreference
+    }
+
+  )
   .catch(error => (
     this.error = error
   ));
@@ -249,7 +301,7 @@ editPreference() {
 deletePreference(idPreference) {
   axios.delete(URL_PREFERENCE + idPreference)
   .then(response => (this.response = response)
-  .then(this.getPreferences())
+  .then(this.getPreferences(this.selectedMusicianForPreference))
 )
 .catch(error => (
   this.error = error

@@ -10,10 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -24,22 +26,22 @@ public class Musician implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idMusician;
+    private long idMusician;
     private String name;
     private boolean laser;
     private String image  = "";
     
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "musician")
+    @OneToMany(mappedBy = "musician", cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
     private List<Preference> preferences = new ArrayList<>();
 
     public Musician() {
     }
 
-    public int getIdMusician() {
+    public long getIdMusician() {
         return idMusician;
     }
 
-    public void setIdMusician(int idMusician) {
+    public void setIdMusician(long idMusician) {
         this.idMusician = idMusician;
     }
 
@@ -67,6 +69,7 @@ public class Musician implements Serializable {
         this.image = image;
     }
 
+    @XmlTransient
     public List<Preference> getPreferences() {
         return preferences;
     }
@@ -74,7 +77,5 @@ public class Musician implements Serializable {
     public void setPreferences(List<Preference> preferences) {
         this.preferences = preferences;
     }
-
-    
-    
+ 
 }
