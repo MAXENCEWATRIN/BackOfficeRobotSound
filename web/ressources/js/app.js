@@ -1,13 +1,12 @@
 function initSlider(app){
-  var vm = app;
   $("#flat-slider-vertical-3")
   .slider({
     max: 100,
     min: 0,
     range: "min",
-    value: vm.preference.x,
+    value: app.preference.y,
     change: function(event, ui) {
-        vm.preference.x = ui.value
+        app.preference.y = ui.value
     },
     orientation: "vertical"
   });
@@ -16,9 +15,9 @@ function initSlider(app){
     max: 100,
     min: 0,
     range: "min",
-    value: vm.preference.y,
+    value: app.preference.x,
     change: function(event, ui) {
-        vm.preference.y = ui.value
+        app.preference.x = ui.value
     },
     orientation: "horizontal"
   });

@@ -14,10 +14,9 @@ var robotSoundApp = new Vue({
     musician: {},
     selectedMusicianForPreference: {},
     ok:'',
-    preference: {}
+    preference: {x:0,y:0}
   },
   mounted() {
-    var vm = this
     this.getMusicians();
     initSlider(this);
   },
