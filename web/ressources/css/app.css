@@ -1,0 +1,39 @@
+input[type=range][orient=vertical]{
+  writing-mode: bt-lr; /* IE */
+  -webkit-appearance: slider-vertical; /* WebKit */
+  -o-appearance: slider-vertical; /* WebKit */
+  -ms-appearance: slider-vertical; /* WebKit */
+  appearance: slider-vertical; /* WebKit */
+  padding: 0 5px;
+}
+
+.slider-v{
+  width: 100%;
+  height: 175px;
+}
+
+.slider-h{
+  width: 100%;
+  height: 50px;
+}
+
+body,html{
+      background-color: #434d5a;
+      color: #fff;
+}
+
+#flat-slider-vertical-3{
+  position: absolute;
+  top: 15px;
+  bottom: 15px;
+  height: 80%;
+  right: 15px;
+  margin: 0;
+}
+
+#flat-slider-vertical-2{
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  left: 15px;
+}

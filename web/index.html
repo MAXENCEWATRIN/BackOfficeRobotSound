@@ -4,33 +4,73 @@
   <meta charset="utf-8">
   <title>Titre de la page</title>
 
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel='stylesheet prefetch' href='https://simeydotme.github.io/jQuery-ui-Slider-Pips/dist/css/jqueryui.min.css'>
+  <link rel='stylesheet prefetch' href='https://simeydotme.github.io/jQuery-ui-Slider-Pips/dist/css/jquery-ui-slider-pips.min.css'>
+  <link rel='stylesheet prefetch' href='ressources/css/simeydotime-app.min.css'>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src='https://simeydotme.github.io/jQuery-ui-Slider-Pips/dist/js/jquery-plus-ui.min.js'></script>
+  <script src='https://simeydotme.github.io/jQuery-ui-Slider-Pips/dist/js/jquery-ui-slider-pips.js'></script>
+
+
+  <link rel="stylesheet" href="ressources/css/loader.css">
+  <link rel="stylesheet" href="ressources/css/slider.css">
+
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <link rel="stylesheet" href="ressources/css/app.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+
   <!-- development version, includes helpful console warnings -->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+
+
+
 </head>
 <body>
-  <style>
-  input[type=range][orient=vertical]
-  {
-    writing-mode: bt-lr; /* IE */
-    -webkit-appearance: slider-vertical; /* WebKit */
-    width: 8px;
-    height: 175px;
-    padding: 0 5px;
-  }
-  </style>
   <div class="container-fluid" id="robotSoundApp">
-    <button class="btn btn-primary"  v-on:click="resetView()">Rafraichir</button>
-    <!-- <div class="row">
-    preference :
-    <pre>
-    {{ preference }}
-  </pre>
-  musician :
+
+    <!-- <script type="text/javascript">
+    // $(document).ready(function(){
+    //   $("#flat-slider-vertical-3")
+    //   .slider({
+    //     max: 100,
+    //     min: 0,
+    //     range: "min",
+    //     value: 0,
+    //     orientation: "vertical"
+    //   });
+    //   $("#flat-slider-vertical-2")
+    //   .slider({
+    //     max: 100,
+    //     min: 0,
+    //     range: "min",
+    //     value: 0,
+    //     orientation: "horizontal"
+    //   });
+    //   $("#flat-slider-vertical-2, #flat-slider-vertical-3")
+    //   .slider("pips", {
+    //     first: "pip",
+    //     last: "pip"
+    //   })
+    //   .slider("float");
+    // })
+  </script> -->
+
+
+  <!-- <button class="btn btn-primary"  v-on:click="resetView()">Rafraichir</button> -->
+  <!--
+  <div class="row">
+  preference :
   <pre>
-  {{ musician }}
+  {{ preference }}
+</pre>
+musician :
+<pre>
+{{ musician }}
 </pre>
 preferences :
 <pre>
@@ -40,69 +80,122 @@ musicians
 <pre>
 {{musicians}}
 </pre>
-</div> -->
+</div>
+-->
 
 <div class="row">
   <div class="col-8" style="height:60vh; position: relative">
-    ma vidéo
+    <div class="loader-container">
+      <div id="loader" class="loader" style="display:none">
+        <div class="wrapper" style="position: absolute; left: 0; top: 0;right:0;bottom:0;">
+          <div class="border-circle" id="one"></div>
+          <div class="border-circle" id="two"></div>
+          <div class="background-circle">
+            <div class="triangle-light"></div>
+            <div class="body"></div>
+            <span class="shirt-text">W</span>
+            <span class="shirt-text">A</span>
+            <span class="shirt-text">I</span>
+            <span class="shirt-text">T</span>
+            <span class="shirt-text">!</span>
 
-    <div class="form-group" style="position: absolute;right: 0;bottom: 15px;">
-      <label for="y">{{ preference.y }}</label>
-      <input type="range" class="form-control-range" step="0" orient="vertical" min="0" max="1000" v-model="preference.y" id="y">
+            <div class="triangle-dark"></div>
+          </div>
+          <div class="head">
+            <div class="ear" id="left"></div>
+            <div class="ear" id="right"></div>
+            <div class="hair-main">
+              <div class="sideburn" id="left"></div>
+              <div class="sideburn" id="right"></div>
+              <div class="hair-top"></div>
+            </div>
+            <div class="face">
+              <div class="hair-bottom"></div>
+              <div class="nose"></div>
+              <div class="eye-shadow" id="left">
+                <div class="eyebrow"></div>
+                <div class="eye"></div>
+              </div>
+              <div class="eye-shadow" id="right">
+                <div class="eyebrow"></div>
+                <div class="eye"></div>
+              </div>
+              <div class="mouth"></div>
+              <div class="shadow-wrapper">
+                <div class="shadow"></div>
+              </div>
+            </div>
+          </div>
+          <span class="music-note" id="one">&#9835;</span>
+          <span class="music-note" id="two">&#9834;</span>
+        </div>
+      </div>
     </div>
-    <div class="form-group"  style="position: absolute;right: 15px;bottom: 0;width:100%;">
-      <label for="x">{{ preference.x }}</label>
-      <input type="range" class="form-control-range" step="0" min="0" max="1000" v-model="preference.x" id="x">
+    <div class="stuff">
+      <div id="slider">
+        <div id="flat-slider-vertical-3"></div>
+        <div id="flat-slider-vertical-2" ></div>
+      </div>
     </div>
-
+    <!-- <div class="form-group" style="position: absolute;right: 0;bottom: 15px;">
+    <label for="y">{{ preference.y }}</label>
+    <input type="range" class="form-control-range" step="0" orient="vertical" min="0" max="1000" v-model="preference.y" id="y">
   </div>
-  <div class="col-4">
-    <h4 class="text-left">ajouter un musicien :</h4>
+  <div class="form-group"  style="position: absolute;right: 15px;bottom: 0;width:100%;">
+  <label for="x">{{ preference.x }}</label>
+  <input type="range" class="form-control-range" step="0" min="0" max="1000" v-model="preference.x" id="x">
+</div> -->
 
-    <form id="musician-form" @submit.prevent="editMusician"  role="form">
+</div>
+<div class="col-4">
+  <h4 class="text-left">Ajouter un musicien :</h4>
 
+  <form id="musician-form" @submit.prevent="editMusician"  role="form">
+
+    <div class="form-group">
+      <label for="name" class="control-label">Nom :</label>
+      <input type="text" id="name" v-model="musician.name" class="form-control" placeholder="Entrez votre nom d'artiste" required="true"/>
+    </div>
+
+    <div class="input-group">
+      <label for="image" class="control-label">Image :</label>
+      <input type="file" id="image" class="form-control-file"/>
+      <!--<img src="musician.image">-->
+    </div>
+
+
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" v-model="musician.laser"/>
+      <label for="laser" class="form-check-label">Laser</label>
+    </div>
+
+    <div class="form-group">
+      <input type="submit" class="btn btn-primary" />
+    </div>
+  </form>
+
+  <div v-if="selectedMusicianForPreference.idMusician">
+    <h4 class="text-left">Ajouter une preference</h4>
+    <form id="preference-form" @submit.prevent="editPreference"  role="form" >
       <div class="form-group">
-        <label for="name" class="control-label">Nom :</label>
-        <input type="text" id="name" v-model="musician.name" class="form-control" placeholder="Entrez votre nom d'artiste" required="true"/>
+        <label for="wording" class="control-label">libellé :</label>
+        <input type="text" id="wording" v-model="preference.wording" class="form-control" placeholder="Entrez le nom du libelle" required="true"/>
+        <div class="help-block with-errors"></div>
       </div>
-
-      <div class="input-group">
-        <label for="image" class="control-label">Image :</label>
-        <input type="file" id="image" class="form-control-file"/>
-        <!--<img src="musician.image">-->
-      </div>
-
-
-      <div class="input-group">
-        <label for="laser" class="control-label">Laser :</label>
-        <input type="checkbox" v-model="musician.laser" @/>
-      </div>
-
+      <label>X : {{ preference.x }}</label><br>
+      <label>Y : {{ preference.y }}</label>
       <div class="form-group">
         <input type="submit" class="btn btn-primary" />
       </div>
     </form>
-
-    <div v-if="selectedMusicianForPreference.idMusician">
-      <h4 class="text-left">ajouter une preference</h4>
-      <form id="preference-form" @submit.prevent="editPreference"  role="form" >
-        <div class="form-group">
-          <label for="wording" class="control-label">libellé :</label>
-          <input type="text" id="wording" v-model="preference.wording" class="form-control" placeholder="Entrez le nom du libelle" required="true"/>
-          <div class="help-block with-errors"></div>
-        </div>
-        <div class="form-group">
-          <input type="submit" class="btn btn-primary" />
-        </div>
-      </form>
-    </div>
-
   </div>
 
 </div>
 
+</div>
+
 <div class="row">
-  <div class="col-6">
+  <div class="col-8">
     <div class="table-responsive">
       <h4 class="text-left">Liste des musiciens</h4>
       <table class="table">
@@ -124,16 +217,16 @@ musicians
             <td>{{ musician.image }}</td>
             <td>{{ musician.laser }}</td>
             <td colspan="3">
-              <button class="btn btn-danger"  v-on:click="deleteMusician(musician.idMusician)">delete</button>
-              <button class="btn btn-warning" v-on:click="updateMusician(musician)">Update</button>
-              <button class="btn btn-primary" v-on:click="selectPreferences(musician)">Préférences</button>
+              <button class="btn btn-danger"  v-on:click="deleteMusician(musician.idMusician)"><i class="far fa-trash-alt"></i></button>
+              <button class="btn btn-warning" v-on:click="updateMusician(musician)"><i class="far fa-edit"></i></button>
+              <button class="btn btn-primary" v-on:click="selectPreferences(musician)"><i class="fas fa-sliders-h"></i></button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-  <div class="col-6">
+  <div class="col-4">
     <div class="table-responsive" v-if="selectedMusicianForPreference.idMusician">
       <h4 class="text-left">Liste des Préférences de {{ selectedMusicianForPreference.name }}</h4>
       <table class="table">
@@ -154,8 +247,8 @@ musicians
             <td>{{ preference.x }}</td>
             <td>{{ preference.y }}</td>
             <td colspan="3">
-              <button class="btn btn-danger"  v-on:click="deletePreference(preference.idPreference)">delete</button>
-              <button class="btn btn-warning"  v-on:click="updatePreference(preference)">update</button>
+              <button class="btn btn-danger"  v-on:click="deletePreference(preference.idPreference)"><i class="far fa-trash-alt"></i></button>
+              <button class="btn btn-warning"  v-on:click="updatePreference(preference)"><i class="far fa-edit"></i></button>
             </td>
           </tr>
         </tbody>
@@ -164,153 +257,8 @@ musicians
   </div>
 </div>
 </div>
-
-<script type="text/javascript">
-var URL = "http://localhost:8080/BackOfficeRobotSound/rest";
-var URL_MUSICIAN = URL + "/musicians/";
-var URL_PREFERENCE = URL + "/preferences/";
-
-
-
-var robotSoundApp = new Vue({
-  el: '#robotSoundApp',
-  data: {
-    musicians: [],
-    preferences: [],
-    error: '',
-    message: '',
-    musician: {},
-    selectedMusicianForPreference: {},
-    ok:'',
-    preference: {}
-  },
-  mounted() {
-    this.getMusicians();
-  },
-  methods: {
-    resetView(){
-      musicians = []
-      preferences = []
-      error = ''
-      message = ''
-      musician = {}
-      selectedMusicianForPreference = {}
-      ok = ''
-      preference = {}
-    },
-    updateMusician(musician) {
-      this.musician = musician
-      this.selectedMusicianForPreference = {}
-    },
-    selectPreferences(musician) {
-      this.selectedMusicianForPreference = musician
-      this.preference.musician = this.selectedMusicianForPreference
-      this.getPreferences(musician);
-    },
-    editMusician() {
-      if (this.musician.idMusician) {
-        axios.put(URL_MUSICIAN, this.musician)
-        .then(response => (
-          this.response = response
-        )
-        .then(
-          this.getMusicians()
-        )
-      ).then(this.musician = {})
-      .catch(error => (
-        this.error = error
-      ));
-    } else {
-      axios.post(URL_MUSICIAN, this.musician)
-      .then(response => (
-        this.response = response
-      ).then(this.musicians = this.getMusicians())
-    ).then(this.musician = {})
-    .catch(error => (
-      this.error = error
-    ));
-  }
-},
-deleteMusician(idMusician) {
-  axios.delete(URL_MUSICIAN + idMusician)
-  .then(response => (
-    this.response = response
-  ).then(
-    this.getMusicians()
-
-
-)).then(this.selectedMusicianForPreference = {}).then(this.preferences = [])
-.catch(error => (
-  this.error = error
-));
-},
-getMusicians() {
-  axios.get(URL_MUSICIAN)
-  .then(response =>
-    (this.musicians = response.data)
-  )
-  .catch(error =>
-    (this.error = "Some issues with the server !")
-  )
-},
-getPreferences(musician){
-  axios.get(URL_PREFERENCE + musician.idMusician)
-  .then(response =>
-    this.preferences = response.data
-  )
-  .catch(error =>
-    (this.error = "Some issues with the server !")
-  )
-},
-updatePreference(preference) {
-  this.preference = preference
-},
-editPreference() {
-  if (this.preference.idPreference) {
-    axios.put(URL_PREFERENCE, this.preference)
-    .then(response => (
-      this.response = response
-    )
-    .then(
-      this.getPreferences(this.selectedMusicianForPreference)
-    )
-  ).then(
-    this.preference = {
-      musician: this.selectedMusicianForPreference
-    }
-  )
-  .catch(error => (
-    this.error = error
-  ));
-} else {
-  axios.post(URL_PREFERENCE, this.preference)
-  .then(response =>
-    (this.response = response).then(this.getPreferences(this.selectedMusicianForPreference))
-  ).then(
-
-    this.preference = {
-      musician: this.selectedMusicianForPreference
-    }
-
-  )
-  .catch(error => (
-    this.error = error
-  ));
-}
-},
-deletePreference(idPreference) {
-  axios.delete(URL_PREFERENCE + idPreference)
-  .then(response => (this.response = response)
-  .then(this.getPreferences(this.selectedMusicianForPreference))
-)
-.catch(error => (
-  this.error = error
-));
-},
-}
-});
-</script>
-
-
+<script src="ressources/js/musician-func.js"></script>
+<script src="ressources/js/preference-func.js"></script>
+<script src="ressources/js/app-vue.js"></script>
 </body>
 </html>
