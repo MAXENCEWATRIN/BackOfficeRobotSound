@@ -15,6 +15,9 @@ function getPreferences(app,musician){
 }
 function updatePreference(app,preference) {
   app.preference = preference
+
+  $("#flat-slider-vertical-2").slider("value",app.preference.x);
+  $("#flat-slider-vertical-3").slider("value",app.preference.y);
 }
 function editPreference(app) {
   if (app.preference.idPreference) {
@@ -48,6 +51,8 @@ function editPreference(app) {
     app.error = error
   ))
 }
+$("#flat-slider-vertical-2").slider("value",0);
+$("#flat-slider-vertical-3").slider("value",0);
 }
 function deletePreference(app,idPreference) {
   axios.delete(URL_PREFERENCE + idPreference)
